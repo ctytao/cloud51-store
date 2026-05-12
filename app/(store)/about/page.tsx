@@ -14,51 +14,53 @@ export default function AboutPage() {
         <p>Cloud51 Store — Hệ thống bán lẻ Apple & Dịch vụ iCloud uy tín hàng đầu.</p>
       </div>
 
-      <div className="trust-card">
-        <div className="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
+      <div className="trust-grid">
+        <div className="trust-card">
+          <div className="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div className="trust-info">
+            <h3>Hàng chính hãng 100%</h3>
+            <p>Bảo hành 12 tháng Apple Vietnam, đầy đủ hoá đơn chứng từ.</p>
+          </div>
         </div>
-        <div className="trust-info">
-          <h3>Hàng chính hãng 100%</h3>
-          <p>Bảo hành 12 tháng Apple Vietnam, đầy đủ hoá đơn chứng từ.</p>
-        </div>
-      </div>
 
-      <div className="trust-card">
-        <div className="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" />
-          </svg>
+        <div className="trust-card">
+          <div className="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" />
+            </svg>
+          </div>
+          <div className="trust-info">
+            <h3>Trả góp 0% iCloud</h3>
+            <p>Xét duyệt 15 phút, không chứng minh thu nhập, bảo mật tuyệt đối.</p>
+          </div>
         </div>
-        <div className="trust-info">
-          <h3>Trả góp 0% iCloud</h3>
-          <p>Xét duyệt 15 phút, không chứng minh thu nhập, bảo mật tuyệt đối.</p>
-        </div>
-      </div>
 
-      <div className="trust-card">
-        <div className="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg>
+        <div className="trust-card">
+          <div className="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <div className="trust-info">
+            <h3>Mở khoá iCloud</h3>
+            <p>Dịch vụ chuyên nghiệp, tỷ lệ thành công cao, hoàn tiền 100%.</p>
+          </div>
         </div>
-        <div className="trust-info">
-          <h3>Mở khoá iCloud</h3>
-          <p>Dịch vụ chuyên nghiệp, tỷ lệ thành công cao, hoàn tiền 100%.</p>
-        </div>
-      </div>
 
-      <div className="trust-card">
-        <div className="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
-          </svg>
-        </div>
-        <div className="trust-info">
-          <h3>Hoạt động từ 2019</h3>
-          <p>Hơn 5 năm kinh nghiệm, hàng nghìn khách hàng hài lòng.</p>
+        <div className="trust-card">
+          <div className="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div className="trust-info">
+            <h3>Hoạt động từ 2019</h3>
+            <p>Hơn 5 năm kinh nghiệm, hàng nghìn khách hàng hài lòng.</p>
+          </div>
         </div>
       </div>
 

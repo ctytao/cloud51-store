@@ -6,8 +6,10 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
   return (
     <div className="store-root">
       <TopNav />
-      <main className="main-content">{children}</main>
-      <BottomNav />
+      <div className="store-body">
+        <BottomNav />
+        <main className="main-content">{children}</main>
+      </div>
       <FloatingContactButtons />
     </div>
   );

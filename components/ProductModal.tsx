@@ -1,14 +1,26 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
-import { CONTACT, zaloUrl, telUrl } from "@/lib/contact";
+import { CONTACT, zaloUrl } from "@/lib/contact";
 import type { Product } from "@/lib/sanity/types";
 
 function fmtVND(n: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
+}
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isDesktop;
 }
 
 interface Props {
@@ -17,6 +29,8 @@ interface Props {
 }
 
 export function ProductModal({ product, onClose }: Props) {
+  const isDesktop = useIsDesktop();
+
   useEffect(() => {
     if (product) {
       document.body.style.overflow = "hidden";
@@ -28,6 +42,21 @@ export function ProductModal({ product, onClose }: Props) {
 
   const category = product?.tag?.[0]?.name ?? "Sản phẩm";
   const imgUrl = product ? urlFor(product.image).width(600).height(450).fit("max").url() : "";
+
+  const slideVariants = {
+    initial: { y: "100%" },
+    animate: { y: 0 },
+    exit: { y: "100%" },
+  };
+  const scaleVariants = {
+    initial: { scale: 0.96, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    exit: { scale: 0.96, opacity: 0 },
+  };
+  const modalVariants = isDesktop ? scaleVariants : slideVariants;
+  const modalTransition = isDesktop
+    ? { duration: 0.2 }
+    : { type: "spring" as const, damping: 30, stiffness: 300 };
 
   return (
     <AnimatePresence>
@@ -42,15 +71,16 @@ export function ProductModal({ product, onClose }: Props) {
         >
           <motion.div
             className="modal"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            variants={modalVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={modalTransition}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="modal-handle" />
+            {!isDesktop && <div className="modal-handle" />}
             <div className="modal-img">
-              <Image src={imgUrl} alt={product.title} fill sizes="400px" className="light-img" />
+              <Image src={imgUrl} alt={product.title} fill sizes="(min-width: 640px) 560px, 430px" className="light-img" />
             </div>
             <div className="modal-cat">{category}</div>
             <div className="modal-title">{product.title}</div>
