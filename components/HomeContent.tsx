@@ -25,7 +25,13 @@ interface Props {
   event: StoreEvent | null;
 }
 
+const PAGE_TABS = [
+  { id: "products", label: "Sản phẩm" },
+  { id: "installment", label: "Trả góp" },
+];
+
 export function HomeContent({ banners, products, event }: Props) {
+  const [pageTab, setPageTab] = useState("products");
   const [activeTab, setActiveTab] = useState("iphone");
   const [selected, setSelected] = useState<Product | null>(null);
 
@@ -36,56 +42,80 @@ export function HomeContent({ banners, products, event }: Props) {
     <>
       <BannerCarousel banners={banners} fallbackZalo={CONTACT.zalo} />
 
-      <div className="sec-hd">
-        <div className="sec-h">Categories</div>
-        <div className="sec-title">Product Catalog</div>
-      </div>
-
-      <div className="tabs">
-        {TABS.map((tab) => (
-          <button key={tab.id} className={`tab${activeTab === tab.id ? " on" : ""}`} onClick={() => setActiveTab(tab.id)}>
-            {tab.label}
+      <div className="page-tabs">
+        {PAGE_TABS.map((t) => (
+          <button key={t.id} className={`page-tab${pageTab === t.id ? " on" : ""}`} onClick={() => setPageTab(t.id)}>
+            {t.label}
           </button>
         ))}
       </div>
 
-      <div className="panel on">
-        <div className="grid">
-          {filtered.map((p) => {
-            const imgUrl = urlFor(p.image).width(400).height(400).fit("crop").url();
-            return (
-              <div key={p._id} className="card" onClick={() => setSelected(p)}>
-                <div className="card-media">
-                  <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
-                </div>
-                <div className="card-body">
-                  <div className="card-name">{p.title}</div>
-                  <div className="card-price">{fmtVND(p.price)}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {event && (
+      {pageTab === "products" && (
         <>
           <div className="sec-hd">
-            <div className="sec-h">Promotions</div>
-            <div className="sec-title">Limited Offers</div>
+            <div className="sec-h">Categories</div>
+            <div className="sec-title">Product Catalog</div>
           </div>
-          <div className="event-block" onClick={() => window.open(event.url || zaloUrl(CONTACT.zalo), "_blank")}>
-            {eventImgUrl && <Image src={eventImgUrl} alt={event.title ?? "Event"} fill sizes="430px" style={{ objectFit: "cover" }} />}
-            <div className="event-gradient" />
-            <div className="event-content">
-              <div className="event-tag">Hot Event</div>
-              {event.title && <div className="event-h">{event.title}</div>}
+
+          <div className="tabs">
+            {TABS.map((tab) => (
+              <button key={tab.id} className={`tab${activeTab === tab.id ? " on" : ""}`} onClick={() => setActiveTab(tab.id)}>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="panel on">
+            <div className="grid">
+              {filtered.map((p) => {
+                const imgUrl = urlFor(p.image).width(400).height(400).fit("crop").url();
+                return (
+                  <div key={p._id} className="card" onClick={() => setSelected(p)}>
+                    <div className="card-media">
+                      <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
+                    </div>
+                    <div className="card-body">
+                      <div className="card-name">{p.title}</div>
+                      <div className="card-price">{fmtVND(p.price)}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
+
+          {event && (
+            <>
+              <div className="sec-hd">
+                <div className="sec-h">Promotions</div>
+                <div className="sec-title">Limited Offers</div>
+              </div>
+              <div className="event-block" onClick={() => window.open(event.url || zaloUrl(CONTACT.zalo), "_blank")}>
+                {eventImgUrl && <Image src={eventImgUrl} alt={event.title ?? "Event"} fill sizes="430px" style={{ objectFit: "cover" }} />}
+                <div className="event-gradient" />
+                <div className="event-content">
+                  <div className="event-tag">Hot Event</div>
+                  {event.title && <div className="event-h">{event.title}</div>}
+                </div>
+              </div>
+            </>
+          )}
         </>
       )}
 
-      <a href="/studio" className="studio-link">Admin Studio</a>
+      {pageTab === "installment" && (
+        <div className="installment-placeholder">
+          <div className="installment-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <path d="M2 10h20" />
+              <path d="M7 15h2M11 15h4" />
+            </svg>
+          </div>
+          <div className="installment-title">Tính trả góp</div>
+          <div className="installment-desc">Công cụ tính toán trả góp đang được cập nhật.</div>
+        </div>
+      )}
 
       <ProductModal product={selected} onClose={() => setSelected(null)} />
     </>

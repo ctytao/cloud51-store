@@ -134,7 +134,7 @@ svg { display: block; }
 }
 .banner {
   flex: 0 0 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 5;
   cursor: pointer;
   position: relative;
   background: #000;
@@ -236,6 +236,50 @@ svg { display: block; }
   background: var(--fg);
 }
 
+/* ── PAGE-LEVEL TABS (Sản phẩm / Trả góp) ───────────────── */
+.page-tabs {
+  display: flex;
+  padding: 0 20px;
+  gap: 0;
+  margin-top: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.page-tab {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  position: relative;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+.page-tab.on { color: var(--fg); }
+.page-tab.on::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--fg);
+  border-radius: 2px 2px 0 0;
+}
+
+/* ── INSTALLMENT PLACEHOLDER ─────────────────────────────── */
+.installment-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  gap: 16px;
+  text-align: center;
+}
+.installment-icon { color: var(--muted); opacity: 0.4; }
+.installment-title { font-size: 20px; font-weight: 600; }
+.installment-desc { font-size: 14px; color: var(--muted); }
+
 /* ── PRODUCT GRID ────────────────────────────────────────── */
 .panel { display: none; padding: 20px; }
 .panel.on { display: block; }
@@ -314,16 +358,6 @@ svg { display: block; }
 .event-sub { font-size: 14px; opacity: 0.8; }
 
 /* ── STUDIO LINK ─────────────────────────────────────────── */
-.studio-link {
-  display: block;
-  padding: 40px 20px;
-  text-align: center;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  opacity: 0.3;
-}
 
 /* ── ABOUT PAGE ──────────────────────────────────────────── */
 .about-h { padding: 40px 24px 20px; }
@@ -640,7 +674,7 @@ svg { display: block; }
   .panel { padding: 24px 28px; }
 
   /* Banner: cap height on wide screens */
-  .banner { aspect-ratio: unset; height: 420px; }
+  .banner { aspect-ratio: unset; height: 240px; }
 
   /* Event block: widescreen */
   .event-block {
@@ -678,7 +712,7 @@ svg { display: block; }
 
   .grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
-  .banner { height: 500px; }
+  .banner { height: 280px; }
 
   .b-nav { width: 88px; max-width: 88px; }
   :root { --sidebar-w: 88px; }
