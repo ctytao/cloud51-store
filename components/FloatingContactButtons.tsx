@@ -6,9 +6,8 @@ export function FloatingContactButtons() {
   return (
     <div className="floats">
       <button className="f-btn f-zalo" onClick={() => window.open(zaloUrl(CONTACT.zalo), "_blank")} aria-label="Zalo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/Icon_of_Zalo.svg" width="52" height="52" alt="Zalo" style={{ borderRadius: "50%", display: "block" }} />
       </button>
       <button className="f-btn f-phone" onClick={() => (window.location.href = telUrl(CONTACT.phone))} aria-label="Gọi điện">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
