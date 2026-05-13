@@ -1,5 +1,5 @@
 import { client } from "./client";
-import type { Banner, Product, StoreEvent } from "./types";
+import type { Banner, Product, StoreEvent, InstallmentModel, InstallmentSettings } from "./types";
 
 const PRODUCT_FIELDS = `_id, title, priority, slug, image, detail, price, "tag": tag[]->{_id, name, slug}`;
 const revalidate = { next: { revalidate: 60 } };
@@ -23,6 +23,23 @@ export async function getProducts(): Promise<Product[]> {
 export async function getLatestEvent(): Promise<StoreEvent | null> {
   const result = await client.fetch(
     `*[_type == "event" && isActive == true] | order(_createdAt desc)[0]{_id, title, image, url, isActive}`,
+    {},
+    revalidate
+  );
+  return result ?? null;
+}
+
+export async function getInstallmentModels(): Promise<InstallmentModel[]> {
+  return client.fetch(
+    `*[_type == "installmentModel"] | order(series desc, sortOrder asc){_id, name, series, minPayment, sortOrder}`,
+    {},
+    revalidate
+  );
+}
+
+export async function getInstallmentSettings(): Promise<InstallmentSettings | null> {
+  const result = await client.fetch(
+    `*[_type == "installmentSettings"][0]{_id, rates}`,
     {},
     revalidate
   );

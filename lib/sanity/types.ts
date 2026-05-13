@@ -35,3 +35,21 @@ export interface StoreEvent {
   url: string;
   isActive: boolean;
 }
+
+export interface InstallmentModel {
+  _id: string;
+  name: string;
+  series: string;
+  minPayment: number;
+  sortOrder: number;
+}
+
+export interface InstallmentRate {
+  period: number;
+  feeRatePercent: number;
+}
+
+export interface InstallmentSettings {
+  _id: string;
+  rates: InstallmentRate[];
+}

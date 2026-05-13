@@ -6,8 +6,9 @@ import { urlFor } from "@/lib/sanity/image";
 import { ProductModal } from "./ProductModal";
 import { BannerCarousel } from "./BannerCarousel";
 import { CONTACT, zaloUrl } from "@/lib/contact";
-import type { Banner, Product, StoreEvent } from "@/lib/sanity/types";
+import type { Banner, Product, StoreEvent, InstallmentModel, InstallmentSettings } from "@/lib/sanity/types";
 import { filterByCategory } from "@/lib/sanity/fetcher";
+import { InstallmentCalculator } from "./InstallmentCalculator";
 
 function fmtVND(n: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
@@ -23,6 +24,8 @@ interface Props {
   banners: Banner[];
   products: Product[];
   event: StoreEvent | null;
+  installmentModels: InstallmentModel[];
+  installmentSettings: InstallmentSettings | null;
 }
 
 const PAGE_TABS = [
@@ -30,7 +33,7 @@ const PAGE_TABS = [
   { id: "installment", label: "Trả góp" },
 ];
 
-export function HomeContent({ banners, products, event }: Props) {
+export function HomeContent({ banners, products, event, installmentModels, installmentSettings }: Props) {
   const [pageTab, setPageTab] = useState("products");
   const [activeTab, setActiveTab] = useState("iphone");
   const [selected, setSelected] = useState<Product | null>(null);
@@ -104,17 +107,7 @@ export function HomeContent({ banners, products, event }: Props) {
       )}
 
       {pageTab === "installment" && (
-        <div className="installment-placeholder">
-          <div className="installment-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="5" width="20" height="14" rx="2" />
-              <path d="M2 10h20" />
-              <path d="M7 15h2M11 15h4" />
-            </svg>
-          </div>
-          <div className="installment-title">Tính trả góp</div>
-          <div className="installment-desc">Công cụ tính toán trả góp đang được cập nhật.</div>
-        </div>
+        <InstallmentCalculator models={installmentModels} settings={installmentSettings} />
       )}
 
       <ProductModal product={selected} onClose={() => setSelected(null)} />

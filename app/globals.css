@@ -266,19 +266,132 @@ svg { display: block; }
   border-radius: 2px 2px 0 0;
 }
 
-/* ── INSTALLMENT PLACEHOLDER ─────────────────────────────── */
-.installment-placeholder {
+/* ── INSTALLMENT CALCULATOR ──────────────────────────────── */
+.installment-calc { padding: 16px 20px 40px; display: flex; flex-direction: column; gap: 24px; }
+.calc-section { display: flex; flex-direction: column; gap: 12px; }
+.calc-label { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.series-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.series-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 0.15s, background 0.15s;
+}
+.series-chip.on { border-color: var(--fg); background: color-mix(in oklch, var(--fg) 8%, var(--bg)); }
+.model-series-items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.model-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 13px;
+  gap: 2px;
+  transition: border-color 0.15s;
+  text-align: left;
+}
+.model-item.on { border-color: var(--fg); background: color-mix(in oklch, var(--fg) 6%, var(--bg)); }
+.model-name { font-weight: 600; }
+.model-min { font-size: 11px; color: #0068FF; font-weight: 500; }
+
+.calc-inputs { display: flex; flex-direction: column; gap: 12px; }
+.calc-field { display: flex; flex-direction: column; gap: 6px; }
+.calc-field label { font-size: 13px; color: var(--muted); }
+.calc-input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.calc-input:focus { border-color: var(--fg); }
+.calc-input-readonly { opacity: 0.6; cursor: not-allowed; background: color-mix(in oklch, var(--fg) 4%, var(--bg)); }
+.upfront-label { font-size: 13px; color: var(--muted); }
+.upfront-amount {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-d);
+  color: #0068FF;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.upfront-amount span { font-size: 14px; font-weight: 500; opacity: 0.7; }
+.calc-input.err { border-color: #ff3b30; }
+.calc-err { font-size: 12px; color: #ff3b30; }
+.calc-gop { font-size: 14px; color: var(--muted); padding: 10px 14px; background: color-mix(in oklch, var(--fg) 5%, var(--bg)); border-radius: 10px; }
+.calc-gop strong { color: var(--fg); }
+
+.period-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.period-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 80px 40px;
-  gap: 16px;
-  text-align: center;
+  padding: 10px 6px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+  gap: 3px;
+  transition: border-color 0.15s;
 }
-.installment-icon { color: var(--muted); opacity: 0.4; }
-.installment-title { font-size: 20px; font-weight: 600; }
-.installment-desc { font-size: 14px; color: var(--muted); }
+.period-btn.on { border-color: var(--fg); background: color-mix(in oklch, var(--fg) 6%, var(--bg)); }
+.period-fee { font-size: 10px; font-weight: 400; color: var(--muted); }
+
+.calc-result {
+  background: color-mix(in oklch, var(--fg) 5%, var(--bg));
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.result-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+.result-row strong { font-size: 15px; }
+.result-weekly { font-size: 24px; font-weight: 700; color: #0068FF; }
+.result-note { font-size: 12px; color: var(--muted); text-align: center; }
+
+/* ── INSTALLMENT EXPORT CARD ─────────────────────────────── */
+.calc-export-card {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.export-header { margin-bottom: 16px; }
+.export-brand { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+.export-sub { font-size: 12px; color: var(--muted); }
+.export-model { font-size: 20px; font-weight: 700; font-family: var(--font-d); margin-bottom: 16px; }
+.export-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.export-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.export-row span:last-child, .export-row strong { color: var(--fg); }
+.export-weekly-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.export-weekly {
+  font-size: 36px;
+  font-weight: 800;
+  font-family: var(--font-d);
+  color: #0068FF;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 4px 0 20px;
+}
+.export-weekly span { font-size: 16px; font-weight: 500; opacity: 0.7; }
+.export-totals { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--border); margin-bottom: 16px; }
+.export-ts { font-size: 11px; color: var(--muted); text-align: right; opacity: 0.6; }
+.export-btn { width: 100%; margin-top: 4px; }
 
 /* ── PRODUCT GRID ────────────────────────────────────────── */
 .panel { display: none; padding: 20px; }
