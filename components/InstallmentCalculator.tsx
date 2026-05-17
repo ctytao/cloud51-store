@@ -154,9 +154,17 @@ export function InstallmentCalculator({ models, settings }: Props) {
               />
             </div>
             <div className="calc-field">
-              <div className="upfront-label">Trả trước tối thiểu</div>
-              <div className="upfront-amount">{fmtVND(minUpfront)} <span>VND</span></div>
-              {phonePrice && !upfrontValid && (
+              <label>Trả trước (VND)</label>
+              <input
+                type="number"
+                className="calc-input"
+                placeholder={`Tối thiểu ${fmtVND(minUpfront)}`}
+                value={upfront}
+                min={minUpfront}
+                onChange={(e) => setUpfront(e.target.value)}
+              />
+              <div className="calc-hint">Tối thiểu: {fmtVND(minUpfront)} VND</div>
+              {upfront && !upfrontValid && (
                 <div className="calc-err">Số tiền nhập phải lớn hơn {fmtVND(minUpfront)} VND</div>
               )}
             </div>
