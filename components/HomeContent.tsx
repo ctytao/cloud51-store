@@ -70,7 +70,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
 
           <div className="panel on">
             <div className="grid">
-              {filtered.map((p) => {
+              {filtered.map((p, i) => {
                 const imgUrl = p.image
                   ? urlFor(p.image).width(400).height(400).fit("crop").url()
                   : null;
@@ -78,7 +78,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                   <div key={p._id} className="card" onClick={() => setSelected(p)}>
                     <div className="card-media">
                       {imgUrl && (
-                        <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
+                        <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" loading={i === 0 ? "eager" : "lazy"} />
                       )}
                     </div>
                     <div className="card-body">
