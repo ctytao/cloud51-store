@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import { ProductModal } from "./ProductModal";
-import type { Product } from "@/lib/sanity/types";
+import type { Product, InstallmentSettings } from "@/lib/sanity/types";
 
 function fmtVND(n: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
@@ -14,9 +14,10 @@ interface Props {
   products: Product[];
   label: string;
   sublabel: string;
+  installmentSettings?: InstallmentSettings | null;
 }
 
-export function CategoryContent({ products, label, sublabel }: Props) {
+export function CategoryContent({ products, label, sublabel, installmentSettings = null }: Props) {
   const [selected, setSelected] = useState<Product | null>(null);
 
   return (
@@ -53,7 +54,7 @@ export function CategoryContent({ products, label, sublabel }: Props) {
         </div>
       </div>
 
-      <ProductModal product={selected} onClose={() => setSelected(null)} />
+      <ProductModal product={selected} onClose={() => setSelected(null)} installmentSettings={installmentSettings} />
     </>
   );
 }

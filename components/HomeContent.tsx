@@ -166,7 +166,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
         <InstallmentCalculator models={installmentModels} settings={installmentSettings} />
       )}
 
-      <ProductModal product={selected} onClose={() => setSelected(null)} />
+      <ProductModal product={selected} onClose={() => setSelected(null)} installmentSettings={installmentSettings} />
     </>
   );
 }
