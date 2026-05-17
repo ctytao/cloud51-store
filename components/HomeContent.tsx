@@ -14,6 +14,14 @@ function fmtVND(n: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
 }
 
+function extractSeries(title: string): string {
+  return title.match(/iPhone (\d+)/)?.[1] ?? "Other";
+}
+
+function shortName(title: string): string {
+  return title.replace(/^iPhone\s+/, "").replace(/\s+/g, "");
+}
+
 const TABS = [
   { id: "iphone", label: "iPhone" },
   { id: "macbook", label: "MacBook" },
@@ -41,6 +49,16 @@ export function HomeContent({ banners, products, event, installmentModels, insta
   const filtered = filterByCategory(products, activeTab);
   const eventImgUrl = event?.image ? urlFor(event.image).width(800).height(800).fit("crop").url() : null;
 
+  const seriesGroups = activeTab === "iphone"
+    ? Object.entries(
+        filtered.reduce((acc, p) => {
+          const s = extractSeries(p.title);
+          (acc[s] ??= []).push(p);
+          return acc;
+        }, {} as Record<string, Product[]>)
+      ).sort(([a], [b]) => Number(b) - Number(a))
+    : [];
+
   return (
     <>
       <BannerCarousel banners={banners} fallbackZalo={CONTACT.zalo} />
@@ -55,11 +73,6 @@ export function HomeContent({ banners, products, event, installmentModels, insta
 
       {pageTab === "products" && (
         <>
-          <div className="sec-hd">
-            <div className="sec-h">Categories</div>
-            <div className="sec-title">Product Catalog</div>
-          </div>
-
           <div className="tabs">
             {TABS.map((tab) => (
               <button key={tab.id} className={`tab${activeTab === tab.id ? " on" : ""}`} onClick={() => setActiveTab(tab.id)}>
@@ -68,32 +81,67 @@ export function HomeContent({ banners, products, event, installmentModels, insta
             ))}
           </div>
 
-          <div className="panel on">
-            <div className="grid">
-              {filtered.map((p, i) => {
-                const imgUrl = p.image
-                  ? urlFor(p.image).width(400).height(400).fit("crop").url()
-                  : null;
-                return (
-                  <div key={p._id} className="card" onClick={() => setSelected(p)}>
-                    <div className="card-media">
-                      {imgUrl && (
-                        <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" loading={i === 0 ? "eager" : "lazy"} />
-                      )}
-                    </div>
-                    <div className="card-body">
-                      <div className="card-name">{p.title}</div>
-                      <div className="card-price">
-                        {p.minPayment != null
-                          ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
-                          : fmtVND(p.price)}
+          {activeTab === "iphone" ? (
+            <div className="series-list">
+              {seriesGroups.map(([series, models]) => (
+                <div key={series} className="series-row">
+                  <div className="series-label">{series}</div>
+                  <div className="series-cards">
+                    {models.map((p) => {
+                      const imgUrl = p.image
+                        ? urlFor(p.image).width(200).height(280).fit("crop").url()
+                        : null;
+                      return (
+                        <div key={p._id} className="sc" onClick={() => setSelected(p)}>
+                          <div className="sc-img">
+                            {imgUrl && (
+                              <Image src={imgUrl} alt={p.title} fill sizes="44px" className="light-img" />
+                            )}
+                          </div>
+                          <div className="sc-body">
+                            <div className="sc-name">{shortName(p.title)}</div>
+                            <div className="sc-pay">Hỗ trợ</div>
+                            <div className="sc-amount">
+                              {p.minPayment != null
+                                ? `${p.minPayment.toLocaleString("vi-VN")}k`
+                                : fmtVND(p.price)}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="panel on">
+              <div className="grid">
+                {filtered.map((p, i) => {
+                  const imgUrl = p.image
+                    ? urlFor(p.image).width(400).height(400).fit("crop").url()
+                    : null;
+                  return (
+                    <div key={p._id} className="card" onClick={() => setSelected(p)}>
+                      <div className="card-media">
+                        {imgUrl && (
+                          <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" loading={i === 0 ? "eager" : "lazy"} />
+                        )}
+                      </div>
+                      <div className="card-body">
+                        <div className="card-name">{p.title}</div>
+                        <div className="card-price">
+                          {p.minPayment != null
+                            ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
+                            : fmtVND(p.price)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {event && (
             <>
