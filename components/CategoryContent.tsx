@@ -28,16 +28,24 @@ export function CategoryContent({ products, label, sublabel }: Props) {
 
       <div className="cat-grid">
         <div className="grid">
-          {products.map((p) => {
-            const imgUrl = urlFor(p.image).width(400).height(400).fit("crop").url();
+          {products.map((p, i) => {
+            const imgUrl = p.image
+              ? urlFor(p.image).width(400).height(400).fit("crop").url()
+              : null;
             return (
               <div key={p._id} className="card" onClick={() => setSelected(p)}>
                 <div className="card-media">
-                  <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
+                  {imgUrl && (
+                    <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" loading={i === 0 ? "eager" : "lazy"} />
+                  )}
                 </div>
                 <div className="card-body">
                   <div className="card-name">{p.title}</div>
-                  <div className="card-price">{fmtVND(p.price)}</div>
+                  <div className="card-price">
+                    {p.minPayment != null
+                      ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
+                      : fmtVND(p.price)}
+                  </div>
                 </div>
               </div>
             );
