@@ -46,6 +46,13 @@ export default defineType({
       type: "array",
       of: [{ type: "reference", to: [{ type: "tag" }] }],
     }),
+    defineField({
+      name: "installmentModel",
+      title: "Mẫu trả góp",
+      description: "Liên kết mức hỗ trợ trả góp cho sản phẩm này",
+      type: "reference",
+      to: [{ type: "installmentModel" }],
+    }),
   ],
   orderings: [
     {

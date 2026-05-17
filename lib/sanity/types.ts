@@ -14,9 +14,10 @@ export interface Product {
   title: string;
   priority: number;
   slug: { current: string };
-  image: SanityImage;
+  image?: SanityImage;
   detail?: string;
   price: number;
+  minPayment?: number;
   tag?: Tag[];
 }
 

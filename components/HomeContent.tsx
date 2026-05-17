@@ -71,15 +71,23 @@ export function HomeContent({ banners, products, event, installmentModels, insta
           <div className="panel on">
             <div className="grid">
               {filtered.map((p) => {
-                const imgUrl = urlFor(p.image).width(400).height(400).fit("crop").url();
+                const imgUrl = p.image
+                  ? urlFor(p.image).width(400).height(400).fit("crop").url()
+                  : null;
                 return (
                   <div key={p._id} className="card" onClick={() => setSelected(p)}>
                     <div className="card-media">
-                      <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
+                      {imgUrl && (
+                        <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" />
+                      )}
                     </div>
                     <div className="card-body">
                       <div className="card-name">{p.title}</div>
-                      <div className="card-price">{fmtVND(p.price)}</div>
+                      <div className="card-price">
+                        {p.minPayment != null
+                          ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
+                          : fmtVND(p.price)}
+                      </div>
                     </div>
                   </div>
                 );

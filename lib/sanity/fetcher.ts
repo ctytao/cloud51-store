@@ -1,7 +1,7 @@
 import { client } from "./client";
 import type { Banner, Product, StoreEvent, InstallmentModel, InstallmentSettings } from "./types";
 
-const PRODUCT_FIELDS = `_id, title, priority, slug, image, detail, price, "tag": tag[]->{_id, name, slug}`;
+const PRODUCT_FIELDS = `_id, title, priority, slug, image, detail, price, "tag": tag[]->{_id, name, slug}, "minPayment": installmentModel->minPayment`;
 const revalidate = { next: { revalidate: 60 } };
 
 export async function getBanners(): Promise<Banner[]> {
