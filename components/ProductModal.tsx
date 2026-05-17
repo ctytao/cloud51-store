@@ -69,6 +69,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
   const upfrontNum = parseFloat(upfront) || 0;
   const gop = Math.max(0, phonePriceNum - upfrontNum);
   const upfrontValid = upfrontNum >= minUpfront;
+  const phonePriceValid = phonePriceNum === 0 || phonePriceNum >= minUpfront;
 
   const selectedRate = rates.find((r) => r.period === period) ?? null;
   const result = useMemo(() => {
@@ -140,9 +141,12 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
                       className="calc-input"
                       placeholder="vd: 28000000"
                       value={phonePrice}
-                      min={0}
+                      min={minUpfront}
                       onChange={(e) => setPhonePrice(e.target.value)}
                     />
+                    {phonePrice && !phonePriceValid && (
+                      <div className="calc-err">Phải ≥ {fmtNum(minUpfront)} VND</div>
+                    )}
                   </div>
                   <div className="calc-field">
                     <label>Trả trước (VND)</label>
@@ -160,7 +164,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
                   </div>
                 </div>
 
-                {phonePriceNum > 0 && upfrontValid && gop > 0 && (
+                {phonePriceNum > 0 && phonePriceValid && upfrontValid && gop > 0 && (
                   <>
                     <div className="mini-calc-gop">
                       Trả góp: <strong>{fmtNum(gop)} VND</strong>
