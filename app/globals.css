@@ -500,7 +500,7 @@ svg { display: block; }
   position: relative;
   overflow: hidden;
 }
-.sc-img img { object-fit: contain !important; }
+.sc-img img { object-fit: cover !important; }
 .sc-body { flex: 1; min-width: 0; }
 .sc-name {
   font-size: 11px;
