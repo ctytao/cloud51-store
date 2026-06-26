@@ -62,7 +62,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
   }, [product]);
 
   const category = product?.tag?.[0]?.name ?? "Sản phẩm";
-  const imgUrl = product?.image ? urlFor(product.image).width(600).height(450).fit("max").url() : "";
+  const imgUrl = product?.image ? urlFor(product.image).width(600).height(600).fit("max").url() : "";
   const minUpfront = (product?.minPayment ?? 0) * 1000;
 
   const phonePriceNum = parseFloat(phonePrice) || 0;

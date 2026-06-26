@@ -91,7 +91,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                     <div className="series-cards">
                       {models.map((p, cardIndex) => {
                         const imgUrl = p.image
-                          ? urlFor(p.image).width(200).height(280).fit("crop").url()
+                          ? urlFor(p.image).width(200).height(200).fit("crop").url()
                           : null;
                         const isFlagship = isNewest && cardIndex === 0;
                         return (

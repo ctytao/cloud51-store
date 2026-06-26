@@ -493,14 +493,17 @@ svg { display: block; }
 .sc:hover { background: #164d5c; }
 .sc-img {
   width: 40px;
-  height: 56px;
+  height: 40px;
   flex-shrink: 0;
   background: rgba(255,255,255,0.08);
   border-radius: 4px;
   position: relative;
   overflow: hidden;
 }
-.sc-img img { object-fit: cover !important; }
+.sc-img img {
+  object-fit: contain !important;
+  mix-blend-mode: normal !important;
+}
 .sc-body { flex: 1; min-width: 0; }
 .sc-name {
   font-size: 11px;
@@ -601,7 +604,7 @@ svg { display: block; }
 }
 .modal-handle { width: 36px; height: 5px; background: var(--border); border-radius: 3px; margin: 0 auto 24px; }
 .modal-img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   background: oklch(98% 0.002 250);
   border-radius: 12px;
   margin-bottom: 24px;
