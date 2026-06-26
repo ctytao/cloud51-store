@@ -102,7 +102,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                           </div>
                           <div className="sc-body">
                             <div className="sc-name">{shortName(p.title)}</div>
-                            <div className="sc-pay">Hỗ trợ</div>
+                            <div className="sc-pay">Trả trước</div>
                             <div className="sc-amount">
                               {p.minPayment != null
                                 ? `${p.minPayment.toLocaleString("vi-VN")}k`
@@ -134,7 +134,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                         <div className="card-name">{p.title}</div>
                         <div className="card-price">
                           {p.minPayment != null
-                            ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
+                            ? `Trả trước: ${p.minPayment.toLocaleString("vi-VN")}k`
                             : fmtVND(p.price)}
                         </div>
                       </div>

@@ -123,7 +123,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
             <div className="modal-title">{product.title}</div>
             <div className="modal-price">
               {product.minPayment != null
-                ? `Hỗ trợ: ${product.minPayment.toLocaleString("vi-VN")}k`
+                ? `Trả trước: ${product.minPayment.toLocaleString("vi-VN")}k`
                 : fmtVND(product.price)}
             </div>
             <div className="modal-desc">

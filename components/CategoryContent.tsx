@@ -44,7 +44,7 @@ export function CategoryContent({ products, label, sublabel, installmentSettings
                   <div className="card-name">{p.title}</div>
                   <div className="card-price">
                     {p.minPayment != null
-                      ? `Hỗ trợ: ${p.minPayment.toLocaleString("vi-VN")}k`
+                      ? `Trả trước: ${p.minPayment.toLocaleString("vi-VN")}k`
                       : fmtVND(p.price)}
                   </div>
                 </div>
