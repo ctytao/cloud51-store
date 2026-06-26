@@ -73,55 +73,48 @@ export function HomeContent({ banners, products, event, installmentModels, insta
 
       {pageTab === "products" && (
         <>
-          <div className="tabs">
-            {TABS.map((tab) => (
-              <button key={tab.id} className={`tab${activeTab === tab.id ? " on" : ""}`} onClick={() => setActiveTab(tab.id)}>
-                {tab.label}
-              </button>
-            ))}
+          <div className="tabs-container">
+            <div className="tabs">
+              {TABS.map((tab) => (
+                <button key={tab.id} className={`tab${activeTab === tab.id ? " on" : ""}`} onClick={() => setActiveTab(tab.id)}>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {activeTab === "iphone" ? (
             <div className="series-list">
-              {seriesGroups.map(([series, models], index) => {
-                const isNewest = index === 0;
-                return (
-                  <div key={series} className={`series-row ${isNewest ? "newest-row" : ""}`}>
-                    <div className="series-label">{series}</div>
-                    <div className="series-cards">
-                      {models.map((p, cardIndex) => {
-                        const imgUrl = p.image
-                          ? urlFor(p.image).width(200).height(200).fit("crop").url()
-                          : null;
-                        const isFlagship = isNewest && cardIndex === 0;
-                        return (
-                          <div key={p._id} className={`sc ${isNewest ? "sc-newest" : ""} ${isFlagship ? "sc-flagship" : ""}`} onClick={() => setSelected(p)}>
-                            {isNewest && (
-                              <svg className="hot-flame-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.8-6.22 4.5-7.8l.5-.3.2.5c.9 2.1 2 3 3.3 3.7C12.3 8.3 13 6.2 13 4v-2l1.2 1.6C17.5 7.6 19 11 19 14c0 4.97-4.03 9-9 9z" />
-                              </svg>
+              {seriesGroups.map(([series, models]) => (
+                <div key={series} className="series-row">
+                  <div className="series-label">{series}</div>
+                  <div className="series-cards">
+                    {models.map((p) => {
+                      const imgUrl = p.image
+                        ? urlFor(p.image).width(200).height(200).fit("crop").url()
+                        : null;
+                      return (
+                        <div key={p._id} className="sc" onClick={() => setSelected(p)}>
+                          <div className="sc-img">
+                            {imgUrl && (
+                              <Image src={imgUrl} alt={p.title} fill sizes="44px" className="light-img" />
                             )}
-                            <div className="sc-img">
-                              {imgUrl && (
-                                <Image src={imgUrl} alt={p.title} fill sizes="44px" className="light-img" />
-                              )}
-                            </div>
-                            <div className="sc-body">
-                              <div className="sc-name">{shortName(p.title)}</div>
-                              <div className="sc-pay">Hỗ trợ</div>
-                              <div className="sc-amount">
-                                {p.minPayment != null
-                                  ? `${p.minPayment.toLocaleString("vi-VN")}k`
-                                  : fmtVND(p.price)}
-                              </div>
+                          </div>
+                          <div className="sc-body">
+                            <div className="sc-name">{shortName(p.title)}</div>
+                            <div className="sc-pay">Hỗ trợ</div>
+                            <div className="sc-amount">
+                              {p.minPayment != null
+                                ? `${p.minPayment.toLocaleString("vi-VN")}k`
+                                : fmtVND(p.price)}
                             </div>
                           </div>
-                        );
-                      })}
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           ) : (
             <div className="panel on">
@@ -130,14 +123,8 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                   const imgUrl = p.image
                     ? urlFor(p.image).width(400).height(400).fit("crop").url()
                     : null;
-                  const isNewest = /iPhone 17\b/i.test(p.title);
                   return (
-                    <div key={p._id} className={`card ${isNewest ? "card-newest" : ""}`} onClick={() => setSelected(p)}>
-                      {isNewest && (
-                        <svg className="hot-flame-icon" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.8-6.22 4.5-7.8l.5-.3.2.5c.9 2.1 2 3 3.3 3.7C12.3 8.3 13 6.2 13 4v-2l1.2 1.6C17.5 7.6 19 11 19 14c0 4.97-4.03 9-9 9z" />
-                        </svg>
-                      )}
+                    <div key={p._id} className="card" onClick={() => setSelected(p)}>
                       <div className="card-media">
                         {imgUrl && (
                           <Image src={imgUrl} alt={p.title} fill sizes="200px" className="light-img" loading={i === 0 ? "eager" : "lazy"} />

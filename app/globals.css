@@ -209,31 +209,43 @@ svg { display: block; }
 }
 
 /* ── TABS ────────────────────────────────────────────────── */
-.tabs {
+.tabs-container {
   display: flex;
+  justify-content: center;
+  width: 100%;
   padding: 0 20px;
-  gap: 20px;
-  border-bottom: 1px solid var(--border);
+  margin: 16px 0 8px;
+}
+.tabs {
+  display: inline-flex;
+  padding: 4px;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
   overflow-x: auto;
   scrollbar-width: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 .tabs::-webkit-scrollbar { display: none; }
 .tab {
-  padding: 12px 0;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--muted);
-  position: relative;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   cursor: pointer;
 }
-.tab.on { color: var(--fg); font-weight: 600; }
-.tab.on::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
+.tab:hover {
+  color: var(--fg);
+}
+.tab.on {
+  color: var(--bg);
   background: var(--fg);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ── PAGE-LEVEL TABS (Sản phẩm / Trả góp) ───────────────── */
@@ -399,8 +411,8 @@ svg { display: block; }
 .panel.on { display: block; }
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 .card {
   background: var(--surface);
@@ -424,7 +436,7 @@ svg { display: block; }
 }
 .dark .card-media { background: oklch(20% 0.005 250); }
 .card-media img { object-fit: contain !important; }
-.light-img { mix-blend-mode: multiply; }
+.light-img { mix-blend-mode: normal; }
 .dark .light-img { mix-blend-mode: normal; }
 .card-body { padding: 6px; }
 .card-name {
@@ -451,11 +463,11 @@ svg { display: block; }
   padding: 12px 12px 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 18px;
 }
 .series-row {
   display: flex;
-  gap: 4px;
+  gap: 12px;
   align-items: stretch;
 }
 .series-label {
@@ -477,7 +489,7 @@ svg { display: block; }
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
+  gap: 12px;
 }
 .sc {
   background: #0d3d4a;
@@ -789,8 +801,6 @@ svg { display: block; }
   .sec-hd { padding: 32px 24px 16px; }
   .sec-title { font-size: 28px; }
 
-  /* Tabs padding */
-  .tabs { padding: 0 24px; gap: 28px; }
   .panel { padding: 24px; }
 
   /* Modal: centered sheet */
@@ -911,7 +921,6 @@ svg { display: block; }
   /* Section padding */
   .sec-hd { padding: 36px 28px 16px; }
   .sec-title { font-size: 30px; }
-  .tabs { padding: 0 28px; }
   .panel { padding: 24px 28px; }
 
   /* Banner: cap height on wide screens */
@@ -958,135 +967,3 @@ svg { display: block; }
   .b-nav { width: 88px; max-width: 88px; }
   :root { --sidebar-w: 88px; }
 }
-
-/* ── HIGHLIGHT NEWEST MODEL (iPhone 17) ──────────────────── */
-
-/* Row container highlight */
-.series-row.newest-row {
-  position: relative;
-  background: linear-gradient(135deg, rgba(255, 204, 0, 0.08) 0%, rgba(255, 179, 0, 0.06) 100%);
-  border-radius: 8px;
-  padding: 4px;
-  border: 1.5px solid rgba(255, 204, 0, 0.35);
-  box-shadow: 0 4px 16px rgba(255, 204, 0, 0.15), inset 0 0 12px rgba(255, 204, 0, 0.06);
-  margin-bottom: 14px; /* Space with the series below */
-}
-
-.dark .series-row.newest-row {
-  background: linear-gradient(135deg, rgba(255, 204, 0, 0.04) 0%, rgba(255, 179, 0, 0.02) 100%);
-  border-color: rgba(255, 204, 0, 0.25);
-  box-shadow: 0 4px 20px rgba(255, 204, 0, 0.18), inset 0 0 16px rgba(255, 204, 0, 0.08);
-}
-
-/* Premium Gold-Titanium Label */
-.series-row.newest-row .series-label {
-  background: linear-gradient(180deg, #ffd700, #ff9900, #cc7a00);
-  background-size: 100% 200%;
-  animation: shine-gradient 4s ease infinite alternate;
-  box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
-  font-weight: 900;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Card highlights in row */
-.sc.sc-newest {
-  background: linear-gradient(135deg, #114352, #07262f);
-  border: 1.5px solid rgba(255, 204, 0, 0.4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 4px rgba(255, 204, 0, 0.1);
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
-  position: relative;
-  overflow: visible;
-  animation: sc-glow-pulse 2.2s infinite alternate ease-in-out;
-}
-
-.sc.sc-newest:hover {
-  background: linear-gradient(135deg, #144f61, #0a333f);
-  border-color: #ffcc00;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 204, 0, 0.65);
-  transform: translateY(-2px) scale(1.02);
-  animation-play-state: paused;
-}
-
-/* Flagship premium styling override (first card) */
-.sc.sc-flagship {
-  background: linear-gradient(135deg, #144b59, #06232b);
-  border: 1.5px solid #ffcc00;
-  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-}
-
-.sc.sc-flagship:hover {
-  background: linear-gradient(135deg, #195869, #09303c);
-  border-color: #ffe259;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 204, 0, 0.8);
-}
-
-/* Hot Flame Icon styling (top-right of cards) */
-.hot-flame-icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 16px;
-  height: 16px;
-  color: #ff4500; /* Vibrant flame red-orange */
-  filter: drop-shadow(0 0 3px rgba(255, 69, 0, 0.6));
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Extra offset for grid view cards */
-.card .hot-flame-icon {
-  top: 6px;
-  right: 6px;
-  width: 18px;
-  height: 18px;
-}
-
-/* Card highlights in grid view */
-.card.card-newest {
-  border: 1.5px solid rgba(255, 204, 0, 0.4);
-  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.08);
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
-  position: relative;
-  overflow: visible;
-  animation: card-glow-pulse 2.2s infinite alternate ease-in-out;
-}
-
-.card.card-newest:hover {
-  border-color: #ffcc00;
-  box-shadow: 0 12px 32px rgba(255, 204, 0, 0.4);
-  transform: translateY(-4px) scale(1.01);
-  animation-play-state: paused;
-}
-
-
-
-@keyframes shine-gradient {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 100%; }
-}
-
-@keyframes sc-glow-pulse {
-  0% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 2px rgba(255, 204, 0, 0.1);
-    border-color: rgba(255, 204, 0, 0.45);
-  }
-  100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 10px rgba(255, 204, 0, 0.4);
-    border-color: rgba(255, 204, 0, 0.85);
-  }
-}
-
-@keyframes card-glow-pulse {
-  0% {
-    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.05);
-    border-color: rgba(255, 204, 0, 0.45);
-  }
-  100% {
-    box-shadow: 0 4px 16px rgba(255, 204, 0, 0.22);
-    border-color: rgba(255, 204, 0, 0.85);
-  }
-}
-
-
-
-
