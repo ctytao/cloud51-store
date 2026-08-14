@@ -15,6 +15,14 @@ function fmtNum(n: number) {
   return Math.round(n).toLocaleString("vi-VN");
 }
 
+function formatMoneyInput(digits: string) {
+  return digits ? Number(digits).toLocaleString("vi-VN") : "";
+}
+
+function parseMoneyInput(input: string) {
+  return input.replace(/\D/g, "");
+}
+
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
@@ -137,12 +145,12 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
                   <div className="calc-field">
                     <label>Giá máy (VND)</label>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
                       className="calc-input"
-                      placeholder="vd: 28000000"
-                      value={phonePrice}
-                      min={minUpfront}
-                      onChange={(e) => setPhonePrice(e.target.value)}
+                      placeholder="vd: 28.000.000"
+                      value={formatMoneyInput(phonePrice)}
+                      onChange={(e) => setPhonePrice(parseMoneyInput(e.target.value))}
                     />
                     {phonePrice && !phonePriceValid && (
                       <div className="calc-err">Phải ≥ {fmtNum(minUpfront)} VND</div>
@@ -151,11 +159,11 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
                   <div className="calc-field">
                     <label>Trả trước (VND)</label>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
                       className="calc-input"
-                      value={upfront}
-                      min={minUpfront}
-                      onChange={(e) => setUpfront(e.target.value)}
+                      value={formatMoneyInput(upfront)}
+                      onChange={(e) => setUpfront(parseMoneyInput(e.target.value))}
                     />
                     <div className="calc-hint">Tối thiểu: {fmtNum(minUpfront)} VND</div>
                     {upfront && !upfrontValid && (

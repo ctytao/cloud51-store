@@ -8,6 +8,14 @@ function fmtVND(n: number) {
   return Math.round(n).toLocaleString("vi-VN");
 }
 
+function formatMoneyInput(digits: string) {
+  return digits ? Number(digits).toLocaleString("vi-VN") : "";
+}
+
+function parseMoneyInput(input: string) {
+  return input.replace(/\D/g, "");
+}
+
 function nowGMT7(): string {
   return new Date().toLocaleString("vi-VN", {
     timeZone: "Asia/Ho_Chi_Minh",
@@ -145,23 +153,23 @@ export function InstallmentCalculator({ models, settings }: Props) {
             <div className="calc-field">
               <label>Giá máy (VND)</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 className="calc-input"
                 placeholder="vd: 28.000.000"
-                value={phonePrice}
-                min={0}
-                onChange={(e) => setPhonePrice(e.target.value)}
+                value={formatMoneyInput(phonePrice)}
+                onChange={(e) => setPhonePrice(parseMoneyInput(e.target.value))}
               />
             </div>
             <div className="calc-field">
               <label>Trả trước (VND)</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 className="calc-input"
                 placeholder={`Tối thiểu ${fmtVND(minUpfront)}`}
-                value={upfront}
-                min={minUpfront}
-                onChange={(e) => setUpfront(e.target.value)}
+                value={formatMoneyInput(upfront)}
+                onChange={(e) => setUpfront(parseMoneyInput(e.target.value))}
               />
               <div className="calc-hint">Tối thiểu: {fmtVND(minUpfront)} VND</div>
               {upfront && !upfrontValid && (
