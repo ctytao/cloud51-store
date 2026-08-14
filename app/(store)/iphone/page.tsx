@@ -5,7 +5,7 @@ import { CategoryContent } from "@/components/CategoryContent";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "iPhone — Cloud51 Store",
+  title: "iPhone — iGop",
   description: "Mua iPhone chính hãng, trả góp 0% qua iCloud. iPhone 13, 14, 15 Series.",
 };
 

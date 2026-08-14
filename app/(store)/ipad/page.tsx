@@ -5,7 +5,7 @@ import { CategoryContent } from "@/components/CategoryContent";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "iPad — Cloud51 Store",
+  title: "iPad — iGop",
   description: "Mua iPad Pro, iPad Air mới 100%. Hỗ trợ trả góp, Apple Pencil.",
 };
 

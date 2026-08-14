@@ -4,7 +4,7 @@ import { schemaTypes } from "./sanity/schemas";
 
 export default defineConfig({
   name: "cloud51-store",
-  title: "Cloud51 Store",
+  title: "iGop Studio",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   plugins: [structureTool()],

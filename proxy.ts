@@ -16,7 +16,7 @@ export function proxy(request: NextRequest) {
 
   return new NextResponse(null, {
     status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Cloud51 Studio"' },
+    headers: { "WWW-Authenticate": 'Basic realm="iGop Studio"' },
   });
 }
 

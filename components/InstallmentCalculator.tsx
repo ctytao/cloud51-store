@@ -208,7 +208,7 @@ export function InstallmentCalculator({ models, settings }: Props) {
         <>
           <div ref={exportRef} className="calc-export-card">
             <div className="export-header">
-              <div className="export-brand">Cloud51 Store</div>
+              <div className="export-brand">iGop</div>
               <div className="export-sub">Bảng tính trả góp</div>
             </div>
             <div className="export-model">iPhone {selectedModel.name}</div>

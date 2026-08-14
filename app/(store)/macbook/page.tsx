@@ -5,7 +5,7 @@ import { CategoryContent } from "@/components/CategoryContent";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "MacBook — Cloud51 Store",
+  title: "MacBook — iGop",
   description: "Mua MacBook Pro, MacBook Air mới 100%. Trả góp 0% qua iCloud.",
 };
 

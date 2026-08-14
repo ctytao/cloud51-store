@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { CONTACT, zaloUrl, telUrl } from "@/lib/contact";
 
 export const metadata: Metadata = {
-  title: "Về Cloud51 Store — Uy tín từ 2019",
-  description: "Cloud51 Store — Hệ thống bán lẻ Apple & Dịch vụ iCloud uy tín hàng đầu.",
+  title: "Về iGop — Uy tín từ 2019",
+  description: "iGop — Hệ thống bán lẻ Apple & Dịch vụ iCloud uy tín hàng đầu.",
 };
 
 export default function AboutPage() {
@@ -11,7 +11,7 @@ export default function AboutPage() {
     <div className="fade-in">
       <div className="about-h">
         <h1>Trust & Reliability</h1>
-        <p>Cloud51 Store — Hệ thống bán lẻ Apple & Dịch vụ iCloud uy tín hàng đầu.</p>
+        <p>iGop — Hệ thống bán lẻ Apple & Dịch vụ iCloud uy tín hàng đầu.</p>
       </div>
 
       <div className="trust-grid">
