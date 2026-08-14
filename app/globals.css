@@ -359,7 +359,6 @@ svg { display: block; }
   transition: border-color 0.15s;
 }
 .period-btn.on { border-color: var(--fg); background: color-mix(in oklch, var(--fg) 6%, var(--bg)); }
-.period-fee { font-size: 10px; font-weight: 400; color: var(--muted); }
 
 .calc-result {
   background: color-mix(in oklch, var(--fg) 5%, var(--bg));

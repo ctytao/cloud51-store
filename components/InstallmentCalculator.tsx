@@ -197,7 +197,6 @@ export function InstallmentCalculator({ models, settings }: Props) {
                 onClick={() => setPeriod(r.period)}
               >
                 {r.period} kỳ
-                <span className="period-fee">phí {r.feeRatePercent}%</span>
               </button>
             ))}
           </div>
