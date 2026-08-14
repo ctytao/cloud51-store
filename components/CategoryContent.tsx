@@ -4,11 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import { ProductModal } from "./ProductModal";
+import { formatPriceDisplay } from "@/lib/installment";
 import type { Product, InstallmentSettings } from "@/lib/sanity/types";
-
-function fmtVND(n: number) {
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
-}
 
 interface Props {
   products: Product[];
@@ -33,6 +30,7 @@ export function CategoryContent({ products, label, sublabel, installmentSettings
             const imgUrl = p.image
               ? urlFor(p.image).width(400).height(400).fit("crop").url()
               : null;
+            const display = formatPriceDisplay(p);
             return (
               <div key={p._id} className="card" onClick={() => setSelected(p)}>
                 <div className="card-media">
@@ -42,11 +40,8 @@ export function CategoryContent({ products, label, sublabel, installmentSettings
                 </div>
                 <div className="card-body">
                   <div className="card-name">{p.title}</div>
-                  <div className="card-price">
-                    {p.minPayment != null
-                      ? `Trả trước: ${p.minPayment.toLocaleString("vi-VN")}k`
-                      : fmtVND(p.price)}
-                  </div>
+                  <div className="card-price">{display.primary}</div>
+                  {display.secondary && <div className="card-installment">{display.secondary}</div>}
                 </div>
               </div>
             );

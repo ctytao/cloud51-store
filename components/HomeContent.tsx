@@ -8,11 +8,8 @@ import { BannerCarousel } from "./BannerCarousel";
 import { CONTACT, zaloUrl } from "@/lib/contact";
 import type { Banner, Product, StoreEvent, InstallmentModel, InstallmentSettings } from "@/lib/sanity/types";
 import { filterByCategory } from "@/lib/sanity/fetcher";
+import { formatPriceDisplay } from "@/lib/installment";
 import { InstallmentCalculator } from "./InstallmentCalculator";
-
-function fmtVND(n: number) {
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
-}
 
 function extractSeries(title: string): string {
   return title.match(/iPhone (\d+)/)?.[1] ?? "Other";
@@ -93,6 +90,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                       const imgUrl = p.image
                         ? urlFor(p.image).width(200).height(200).fit("crop").url()
                         : null;
+                      const display = formatPriceDisplay(p);
                       return (
                         <div key={p._id} className="sc" onClick={() => setSelected(p)}>
                           <div className="sc-img">
@@ -102,12 +100,8 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                           </div>
                           <div className="sc-body">
                             <div className="sc-name">{shortName(p.title)}</div>
-                            <div className="sc-pay">Trả trước</div>
-                            <div className="sc-amount">
-                              {p.minPayment != null
-                                ? `${p.minPayment.toLocaleString("vi-VN")}k`
-                                : fmtVND(p.price)}
-                            </div>
+                            <div className="sc-amount">{display.primary}</div>
+                            {display.secondary && <div className="sc-pay">{display.secondary}</div>}
                           </div>
                         </div>
                       );
@@ -123,6 +117,7 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                   const imgUrl = p.image
                     ? urlFor(p.image).width(400).height(400).fit("crop").url()
                     : null;
+                  const display = formatPriceDisplay(p);
                   return (
                     <div key={p._id} className="card" onClick={() => setSelected(p)}>
                       <div className="card-media">
@@ -132,11 +127,8 @@ export function HomeContent({ banners, products, event, installmentModels, insta
                       </div>
                       <div className="card-body">
                         <div className="card-name">{p.title}</div>
-                        <div className="card-price">
-                          {p.minPayment != null
-                            ? `Trả trước: ${p.minPayment.toLocaleString("vi-VN")}k`
-                            : fmtVND(p.price)}
-                        </div>
+                        <div className="card-price">{display.primary}</div>
+                        {display.secondary && <div className="card-installment">{display.secondary}</div>}
                       </div>
                     </div>
                   );

@@ -16,7 +16,7 @@ export interface Product {
   slug: { current: string };
   image?: SanityImage;
   detail?: string;
-  price: number;
+  price?: number;
   minPayment?: number;
   tag?: Tag[];
 }

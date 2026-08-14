@@ -7,6 +7,36 @@ export const DEFAULT_RATES: InstallmentRate[] = [
   { period: 20, feeRatePercent: 36 },
 ];
 
+export interface PriceDisplay {
+  primary: string;
+  secondary?: string;
+}
+
+export function formatPriceDisplay(product: {
+  price?: number;
+  minPayment?: number;
+}): PriceDisplay {
+  const price = product.price;
+  const min = product.minPayment;
+  const hasPrice = typeof price === "number" && price > 0;
+  const hasMin = typeof min === "number" && min > 0;
+
+  if (hasPrice) {
+    const primary = `${price.toLocaleString("vi-VN")}đ`;
+    if (hasMin) {
+      return {
+        primary,
+        secondary: `Trả trước ${(min * 1000).toLocaleString("vi-VN")}đ`,
+      };
+    }
+    return { primary };
+  }
+  if (hasMin) {
+    return { primary: `Trả trước: ${min.toLocaleString("vi-VN")}k` };
+  }
+  return { primary: "Liên hệ" };
+}
+
 export interface InstallmentOption {
   period: number;
   feeRatePercent: number;

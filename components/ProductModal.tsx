@@ -5,11 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import { CONTACT, zaloUrl } from "@/lib/contact";
+import { formatPriceDisplay } from "@/lib/installment";
 import type { Product, InstallmentSettings } from "@/lib/sanity/types";
-
-function fmtVND(n: number) {
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
-}
 
 function fmtNum(n: number) {
   return Math.round(n).toLocaleString("vi-VN");
@@ -61,7 +58,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
       document.body.style.overflow = "hidden";
       const min = (product.minPayment ?? 0) * 1000;
       setUpfront(min > 0 ? String(min) : "");
-      setPhonePrice("");
+      setPhonePrice(product.price && product.price > 0 ? String(product.price) : "");
       setPeriod(null);
     } else {
       document.body.style.overflow = "";
@@ -72,6 +69,7 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
   const category = product?.tag?.[0]?.name ?? "Sản phẩm";
   const imgUrl = product?.image ? urlFor(product.image).width(600).height(600).fit("max").url() : "";
   const minUpfront = (product?.minPayment ?? 0) * 1000;
+  const priceDisplay = product ? formatPriceDisplay(product) : null;
 
   const phonePriceNum = parseFloat(phonePrice) || 0;
   const upfrontNum = parseFloat(upfront) || 0;
@@ -129,11 +127,14 @@ export function ProductModal({ product, onClose, installmentSettings }: Props) {
             </div>
             <div className="modal-cat">{category}</div>
             <div className="modal-title">{product.title}</div>
-            <div className="modal-price">
-              {product.minPayment != null
-                ? `Trả trước: ${product.minPayment.toLocaleString("vi-VN")}k`
-                : fmtVND(product.price)}
-            </div>
+            {priceDisplay && (
+              <div className="modal-price-block">
+                <div className="modal-price">{priceDisplay.primary}</div>
+                {priceDisplay.secondary && (
+                  <div className="modal-installment">{priceDisplay.secondary}</div>
+                )}
+              </div>
+            )}
             <div className="modal-desc">
               {product.detail ?? "Vui lòng liên hệ để nhận ưu đãi!!"}
             </div>
